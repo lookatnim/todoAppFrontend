@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element:  <Login/> ,
+  },{
+    path: "/register",
+    element:  <Register/> ,
+  },,{
+    path: "/tasklist",
+    element:  <TaskList/> ,
+  },
+]);
+
+const App = () => {
+  const [token, setToken] = useState(null);
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>To-Do List Application</h1>
+      <RouterProvider router={router} />
     </div>
   );
-}
+};
 
 export default App;
